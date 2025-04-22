@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/Widgets/footer.dart';
 import 'package:my_app/Widgets/header.dart';
-import 'package:my_app/Widgets/sidebar.dart';
+//import 'package:my_app/Widgets/sidebar.dart';
 
 class BaseLayout extends StatelessWidget {
   final Widget child;

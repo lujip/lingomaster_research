@@ -31,3 +31,4 @@ flutter:
 
   assets:
     - assets/wordlist.txt
+    - assets/audio/

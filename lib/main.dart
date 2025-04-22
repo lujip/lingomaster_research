@@ -85,7 +85,7 @@ class _MyHomePageState extends State<MyHomePage> {
         children: [
           HomeRecordPage(),
           WordsPage(),
-          SettingsPage(),
+       //   SettingsPage(),
         ],
       ),
       bottomNavigationBar: CustomFooter(

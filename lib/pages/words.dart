@@ -39,6 +39,8 @@ class _WordsPageState extends State<WordsPage> {
                   padding: const EdgeInsets.symmetric(vertical: 4.0),
                   child: GestureDetector(
                     onTap: () {
+                      HomeRecordPage.selectedWord = word;
+                      
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => MyApp()),
