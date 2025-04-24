@@ -6,7 +6,7 @@ import 'Widgets/header.dart';
 import 'Widgets/sidebar.dart';
 import 'pages/home_record.dart';
 import 'pages/words.dart';
-import 'pages/settings.dart';
+//import 'pages/settings.dart';
 
 void main() {
   runApp(MyApp());
@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
               useMaterial3: true,
               colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepOrange),
             ),
-            darkTheme: ThemeData.dark(), // Built-in dark theme
+            darkTheme: ThemeData.dark(), // dark theme
             home: MyHomePage(),
           );
         },
@@ -40,11 +40,11 @@ class MyApp extends StatelessWidget {
 
 class MyAppState extends ChangeNotifier {
   var current = WordPair.random();
-  bool isDarkMode = false; // Theme state
+  bool isDarkMode = false; 
 
   void toggleTheme() {
     isDarkMode = !isDarkMode;
-    notifyListeners(); // Notify UI to update
+    notifyListeners(); 
   }
 }
 
