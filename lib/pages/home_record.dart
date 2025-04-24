@@ -10,6 +10,7 @@ import 'package:my_app/Widgets/evaluate.dart';
 
 class HomeRecordPage extends StatefulWidget {
   static String? selectedWord;
+  static String? phraseTxt;
 
   const HomeRecordPage({super.key});
 
@@ -43,7 +44,7 @@ class _MyHomePageState extends State<HomeRecordPage> {
     audioPlayer.dispose();
     nativeAudioPlayer.dispose();
     recorderController.dispose();
-    waveformPlayerController.dispose(); 
+    waveformPlayerController.dispose();
     super.dispose();
   }
 
@@ -59,13 +60,32 @@ class _MyHomePageState extends State<HomeRecordPage> {
     return Scaffold(
       body: Stack(
         children: [
-          // Main UI content
           SizedBox(
             width: MediaQuery.of(context).size.width,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // Recording waveform
+                if (nativePath != null)
+                  Container(
+                    padding: EdgeInsets.all(8.0),
+                    constraints: BoxConstraints(
+                      maxWidth: 300,
+                    ),
+                    decoration: BoxDecoration(
+                      borderRadius:
+                          BorderRadius.circular(12.0), 
+                      border: Border.all(
+                        color: Theme.of(context).colorScheme.secondary, 
+                        width: 4.0, 
+                      ),
+                    ),
+                    child: Text(
+                      HomeRecordPage.phraseTxt ?? ' ',
+                      style: TextStyle(fontSize: 18),
+                      softWrap: true,
+                    ),
+                  ),
+                //recording waveform
                 if (isRecording)
                   AudioWaveforms(
                     size: const Size(double.infinity, 100),
@@ -76,7 +96,7 @@ class _MyHomePageState extends State<HomeRecordPage> {
                     ),
                     enableGesture: true,
                   ),
-                // waveform after recording
+                //waveform after recording
                 if (recordingPath != null && !isRecording)
                   Align(
                     alignment: Alignment.center,
@@ -98,7 +118,7 @@ class _MyHomePageState extends State<HomeRecordPage> {
                   ),
                 const SizedBox(height: 16),
 
-                //Play own recording
+                //play own recording
                 if (recordingPath != null)
                   MaterialButton(
                     onPressed: () async {
@@ -120,14 +140,19 @@ class _MyHomePageState extends State<HomeRecordPage> {
                         });
                       }
                     },
+                    padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
                     color: Theme.of(context).colorScheme.primary,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
                     child: Text(
                       isPlaying ? "Play Again" : "Play Recording",
-                      style: const TextStyle(color: Colors.white),
+                      style: TextStyle(
+                          color: Theme.of(context).colorScheme.onPrimary),
                     ),
                   ),
 
-                // 🔊 Play native audio for selected word
+                //play audio for selected word
                 if (nativePath != null)
                   MaterialButton(
                     onPressed: () async {
@@ -144,10 +169,15 @@ class _MyHomePageState extends State<HomeRecordPage> {
                         });
                       }
                     },
-                    color: Colors.deepPurple,
+                    padding: EdgeInsets.symmetric(horizontal: 30, vertical: 12),
+                    color: Theme.of(context).colorScheme.secondary,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
                     child: Text(
                       isNativePlaying ? "Play again" : "Play Selected Audio",
-                      style: const TextStyle(color: Colors.white),
+                      style: TextStyle(
+                          color: Theme.of(context).colorScheme.onPrimary),
                     ),
                   ),
 
@@ -177,12 +207,9 @@ class _MyHomePageState extends State<HomeRecordPage> {
                 }
               },
               style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.symmetric(
-                    horizontal: 24,
-                    vertical: 16), 
-                textStyle: TextStyle(fontSize: 18), 
-                minimumSize: Size(
-                    200, 60), 
+                padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                textStyle: TextStyle(fontSize: 18),
+                minimumSize: Size(200, 60),
               ),
               child: Text("Evaluate"),
             ),
@@ -192,7 +219,7 @@ class _MyHomePageState extends State<HomeRecordPage> {
     );
   }
 
-  // Show dialog when no recording is available
+  //no recording
   void _showNoRecordingDialog() {
     showDialog(
       context: context,
@@ -210,7 +237,7 @@ class _MyHomePageState extends State<HomeRecordPage> {
     );
   }
 
-  // Show dialog when no selected speech is available
+  //no selected speech
   void _showNoSelectedWordDialog() {
     showDialog(
       context: context,
@@ -245,9 +272,13 @@ class _MyHomePageState extends State<HomeRecordPage> {
             final Directory appDocumentsDir =
                 await getApplicationDocumentsDirectory();
             final String filePath =
-                p.join(appDocumentsDir.path, "recording.m4a");
+                p.join(appDocumentsDir.path, "recording1.wav");
             await audioRecorder.start(
-              const RecordConfig(),
+              const RecordConfig(
+                encoder: AudioEncoder.wav, 
+                sampleRate: 16000, 
+                bitRate: 128000, 
+              ),
               path: filePath,
             );
             recorderController.record();
@@ -292,7 +323,7 @@ class _MyHomePageState extends State<HomeRecordPage> {
   String sanitizeFilename(String word) {
     return word
         .toLowerCase()
-        .replaceAll(RegExp(r'[^\w\s]'), '') 
-        .replaceAll(RegExp(r'\s+'), '_'); 
+        .replaceAll(RegExp(r'[^\w\s]'), '')
+        .replaceAll(RegExp(r'\s+'), '_');
   }
 }
