@@ -59,12 +59,6 @@ Coming soon. This repository is primarily for documentation and reference.
 
 ---
 
-## 📄 License
-
-This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
-
----
-
 ## 🤝 Acknowledgments
 
 - [VCTK Corpus](https://datashare.ed.ac.uk/handle/10283/3443)
