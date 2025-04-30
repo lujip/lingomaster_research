@@ -45,16 +45,14 @@ class _EvaluatePageState extends State<EvaluatePage> {
         double similarity = data['blended_similarity'];
         String label;
 
-        if (similarity <= 20) {
-          label = "❌ Bad";
-        } else if (similarity <= 40) {
-          label = "⚠️ Getting Close";
-        } else if (similarity <= 60) {
-          label = "👍 Good";
-        } else if (similarity <= 80) {
-          label = "✅ Very Good";
+        if (similarity <= 50) {
+          label = "❌ Needs Improvement";
+        } else if (similarity <= 69) {
+          label = "⚠️ Fair \n “Fair attempt. Focus on improving intonation.”";
+        } else if (similarity <= 84) {
+          label = "👍 Good \n “Good job! Just a little room for improvement.”";
         } else {
-          label = "🌟 Perfect";
+          label = "✅ Excellent Pronunciation \n “Great! Your pronunciation is excellent.”";
         }
         setState(() {
           resultText = "Similarity: ${similarity.toStringAsFixed(2)}% - $label";
@@ -85,8 +83,8 @@ class _EvaluatePageState extends State<EvaluatePage> {
           Text(
             resultText,
             style: TextStyle(
-              fontSize: 18.0, // Set the font size
-              fontWeight: FontWeight.bold, // Set the font weight
+              fontSize: 18.0, 
+              fontWeight: FontWeight.bold, 
             ),
           ),
         ],
@@ -96,11 +94,11 @@ class _EvaluatePageState extends State<EvaluatePage> {
           decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.onPrimary,
             border: Border.all(
-              color: Theme.of(context).colorScheme.onPrimary, // Border color
-              width: 2.0, // Border width
+              color: Theme.of(context).colorScheme.onPrimary,
+              width: 2.0, 
             ),
             borderRadius:
-                BorderRadius.circular(16.0), // Border radius for rounded corners
+                BorderRadius.circular(16.0), 
           ),
           child: TextButton(
             onPressed: () => Navigator.pop(context),
