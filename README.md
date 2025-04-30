@@ -3,7 +3,6 @@
 [![Python](https://img.shields.io/badge/Backend-Python-blue?logo=python)](https://www.python.org/)
 [![Flutter](https://img.shields.io/badge/Frontend-Flutter-02569B?logo=flutter)](https://flutter.dev/)
 [![PyTorch](https://img.shields.io/badge/ML-PyTorch-EE4C2C?logo=pytorch)](https://pytorch.org/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 **LingoMaster** is an AI-powered engine designed to assess the **pronunciation** and **intonation** of English language learners using advanced speech processing and machine learning techniques.
 
